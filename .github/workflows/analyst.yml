@@ -24,11 +24,14 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install anthropic google-auth google-api-python-client
+        run: pip install google-genai groq google-auth google-api-python-client
 
       - name: Run analysis
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
+          GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
+          GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
         run: python scripts/analyst.py
 

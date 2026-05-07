@@ -206,5 +206,105 @@
     "author": "eden-voss",
     "priority": 20,
     "status": "queued"
+  },
+  {
+    "id": 21,
+    "title": "Complicated Grief Ritual: When Grief Becomes Complicated and Won't Move",
+    "cluster": "grief-rituals",
+    "slug": "complicated-grief-ritual",
+    "target_query": "complicated grief ritual",
+    "author": "eden-voss",
+    "priority": 21,
+    "status": "queued"
+  },
+  {
+    "id": 22,
+    "title": "Grief and the Vagus Nerve: What Science Actually Says",
+    "cluster": "polyvagal",
+    "slug": "grief-vagus-nerve-science",
+    "target_query": "grief vagus nerve",
+    "author": "m-ellis",
+    "priority": 22,
+    "status": "queued"
+  },
+  {
+    "id": 23,
+    "title": "Full Moon Grief Ritual: A Lunar Release Practice for Loss",
+    "cluster": "healing-rituals",
+    "slug": "full-moon-grief-ritual",
+    "target_query": "full moon grief ritual",
+    "author": "sable-march",
+    "priority": 23,
+    "status": "queued"
+  },
+  {
+    "id": 24,
+    "title": "Water Ritual for Grief: Using Water's Properties for Emotional Release",
+    "cluster": "healing-rituals",
+    "slug": "water-ritual-grief",
+    "target_query": "water ritual grief release",
+    "author": "eden-voss",
+    "priority": 24,
+    "status": "queued"
+  },
+  {
+    "id": 25,
+    "title": "Somatic Experiencing for Grief: Peter Levine's Approach to Loss",
+    "cluster": "grief-rituals",
+    "slug": "somatic-experiencing-grief",
+    "target_query": "somatic experiencing grief Peter Levine",
+    "author": "m-ellis",
+    "priority": 25,
+    "status": "queued"
+  },
+  {
+    "id": 26,
+    "title": "IFS Exile Healing for Grief: Working with the Parts That Hold Loss",
+    "cluster": "ifs",
+    "slug": "ifs-exile-healing-grief",
+    "target_query": "IFS exile grief healing",
+    "author": "m-ellis",
+    "priority": 26,
+    "status": "queued"
+  },
+  {
+    "id": 27,
+    "title": "Breathwork for Grief: How Extended Exhale Releases Stored Sorrow",
+    "cluster": "emotional-release",
+    "slug": "breathwork-grief-extended-exhale",
+    "target_query": "breathwork grief release",
+    "author": "eden-voss",
+    "priority": 27,
+    "status": "queued"
+  },
+  {
+    "id": 28,
+    "title": "Grief Journaling Ritual: Writing as a Somatic Practice",
+    "cluster": "emotional-release",
+    "slug": "grief-journaling-ritual-somatic",
+    "target_query": "grief journaling ritual somatic",
+    "author": "sable-march",
+    "priority": 28,
+    "status": "queued"
+  },
+  {
+    "id": 29,
+    "title": "Morning Grief Practice: A 10-Minute Polyvagal Regulation Ritual",
+    "cluster": "morning-rituals",
+    "slug": "morning-grief-practice-polyvagal",
+    "target_query": "morning grief practice polyvagal",
+    "author": "eden-voss",
+    "priority": 29,
+    "status": "queued"
+  },
+  {
+    "id": 30,
+    "title": "Fire Ritual for Grief: Burning Ceremony for Release and Transformation",
+    "cluster": "healing-rituals",
+    "slug": "fire-ritual-grief-ceremony",
+    "target_query": "fire ritual grief ceremony release",
+    "author": "sable-march",
+    "priority": 30,
+    "status": "queued"
   }
 ]

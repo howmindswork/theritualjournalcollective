@@ -9,7 +9,48 @@ import re
 import sys
 import datetime
 from pathlib import Path
-import anthropic
+from google import genai as google_genai
+from google.genai import types as google_types
+
+GROQ_KEYS = [k for k in os.environ.get("GROQ_KEYS", "").split(",") if k.strip()]
+
+def call_llm(prompt, max_tokens=8192):
+    # Try Gemini first
+    try:
+        client = google_genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt,
+            config=google_types.GenerateContentConfig(max_output_tokens=max_tokens)
+        )
+        return response.text
+    except Exception as e:
+        print(f"Gemini failed: {e}, trying Groq...")
+
+    # Fallback: Groq with key rotation
+    groq_keys = [
+        os.environ.get("GROQ_API_KEY_1"),
+        os.environ.get("GROQ_API_KEY_2"),
+        os.environ.get("GROQ_API_KEY_3"),
+        os.environ.get("GROQ_API_KEY_4"),
+        os.environ.get("GROQ_API_KEY_5"),
+    ]
+    groq_keys = [k for k in groq_keys if k] or GROQ_KEYS
+
+    for key in groq_keys:
+        try:
+            from groq import Groq
+            client = Groq(api_key=key)
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=max_tokens
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"Groq key failed: {e}")
+
+    raise RuntimeError("All LLM providers failed")
 
 REPO_ROOT = Path(__file__).parent.parent
 QUEUE_FILE = REPO_ROOT / "topic_queue.json"
@@ -167,14 +208,7 @@ def main():
         today=today
     )
 
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-    message = client.messages.create(
-        model="claude-sonnet-4-6",
-        max_tokens=8192,
-        messages=[{"role": "user", "content": prompt}]
-    )
-
-    html = message.content[0].text
+    html = call_llm(prompt, max_tokens=8192)
 
     # Strip markdown code fences if present
     html = re.sub(r'^```html?\n', '', html, flags=re.MULTILINE)
