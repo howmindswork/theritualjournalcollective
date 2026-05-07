@@ -13,43 +13,57 @@ from googleapiclient.discovery import build
 from google import genai as google_genai
 from google.genai import types as google_types
 
-GROQ_KEYS = [k for k in os.environ.get("GROQ_KEYS", "").split(",") if k.strip()]
-
 def call_llm(prompt, max_tokens=2048):
-    # Try Gemini first
-    try:
-        client = google_genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=prompt,
-            config=google_types.GenerateContentConfig(max_output_tokens=max_tokens)
-        )
-        return response.text
-    except Exception as e:
-        print(f"Gemini failed: {e}, trying Groq...")
+    # Try Gemini keys (primary + secondary)
+    for gkey in filter(None, [os.environ.get("GEMINI_API_KEY"), os.environ.get("GEMINI_API_KEY_BLOG")]):
+        for gmodel in ["gemini-2.0-flash", "gemini-1.5-flash"]:
+            try:
+                client = google_genai.Client(api_key=gkey)
+                response = client.models.generate_content(
+                    model=gmodel,
+                    contents=prompt,
+                    config=google_types.GenerateContentConfig(max_output_tokens=max_tokens)
+                )
+                print(f"LLM: {gmodel} succeeded")
+                return response.text
+            except Exception as e:
+                print(f"Gemini {gmodel} failed: {e}")
 
-    # Fallback: Groq with key rotation
-    groq_keys = [
-        os.environ.get("GROQ_API_KEY_1"),
-        os.environ.get("GROQ_API_KEY_2"),
-        os.environ.get("GROQ_API_KEY_3"),
-        os.environ.get("GROQ_API_KEY_4"),
-        os.environ.get("GROQ_API_KEY_5"),
-    ]
-    groq_keys = [k for k in groq_keys if k] or GROQ_KEYS
-
-    for key in groq_keys:
+    # Try Cerebras (1M tokens/day free)
+    cerebras_key = os.environ.get("CEREBRAS_API_KEY")
+    if cerebras_key:
         try:
-            from groq import Groq
-            client = Groq(api_key=key)
+            from cerebras.cloud.sdk import Cerebras
+            client = Cerebras(api_key=cerebras_key)
             response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
+                model="llama-3.3-70b",
                 messages=[{"role": "user", "content": prompt}],
-                max_tokens=max_tokens
+                max_tokens=min(max_tokens, 8192)
             )
+            print("LLM: Cerebras succeeded")
             return response.choices[0].message.content
         except Exception as e:
-            print(f"Groq key failed: {e}")
+            print(f"Cerebras failed: {e}")
+
+    # Try Groq with key rotation (all 13 keys, two models each)
+    groq_keys = [v for k, v in sorted(os.environ.items())
+                 if k.startswith("GROQ_API_KEY") and v]
+    for key in groq_keys:
+        for gmodel in ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"]:
+            try:
+                from groq import Groq
+                client = Groq(api_key=key)
+                response = client.chat.completions.create(
+                    model=gmodel,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=max_tokens
+                )
+                print(f"LLM: Groq {gmodel} succeeded")
+                return response.choices[0].message.content
+            except Exception as e:
+                print(f"Groq {gmodel} failed: {e}")
+                if "rate_limit" not in str(e).lower():
+                    break
 
     raise RuntimeError("All LLM providers failed")
 

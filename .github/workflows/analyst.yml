@@ -24,16 +24,26 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install google-genai groq google-auth google-api-python-client
+        run: pip install google-genai groq cerebras-cloud-sdk google-auth google-api-python-client
 
       - name: Run analysis
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_BLOG: ${{ secrets.GEMINI_API_KEY_BLOG }}
+          CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
           GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
           GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
           GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
           GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
           GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
+          GROQ_API_KEY_6: ${{ secrets.GROQ_API_KEY_6 }}
+          GROQ_API_KEY_7: ${{ secrets.GROQ_API_KEY_7 }}
+          GROQ_API_KEY_8: ${{ secrets.GROQ_API_KEY_8 }}
+          GROQ_API_KEY_9: ${{ secrets.GROQ_API_KEY_9 }}
+          GROQ_API_KEY_10: ${{ secrets.GROQ_API_KEY_10 }}
+          GROQ_API_KEY_11: ${{ secrets.GROQ_API_KEY_11 }}
+          GROQ_API_KEY_12: ${{ secrets.GROQ_API_KEY_12 }}
+          GROQ_API_KEY_13: ${{ secrets.GROQ_API_KEY_13 }}
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
         run: python scripts/analyst.py
 
