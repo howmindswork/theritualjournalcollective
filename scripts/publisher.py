@@ -60,25 +60,42 @@ def call_llm(prompt, max_tokens=8192):
         except Exception as e:
             print(f"Mistral failed: {e}")
 
-    # 4. Groq — 16 keys, llama-3.3-70b only (8b has 6k TPM, too small for article prompts)
-    groq_keys = [v for k, v in sorted(os.environ.items())
-                 if k.startswith("GROQ_API_KEY") and v]
-    for key in groq_keys:
+    # 4. OpenRouter — free models ($0, 200 req/day per model)
+    openrouter_key = os.environ.get("OPENROUTER_API_KEY")
+    if openrouter_key:
+        for ormodel in ["google/gemini-2.0-flash-exp:free", "meta-llama/llama-3.3-70b-instruct:free"]:
+            try:
+                data = json.dumps({"model": ormodel, "messages": [{"role": "user", "content": prompt}], "max_tokens": min(max_tokens, 8192)}).encode()
+                req = urllib.request.Request("https://openrouter.ai/api/v1/chat/completions", data=data,
+                    headers={"Authorization": f"Bearer {openrouter_key}", "Content-Type": "application/json",
+                             "HTTP-Referer": "https://theritualjournalcollective.com"})
+                with urllib.request.urlopen(req, timeout=120) as resp:
+                    result = json.loads(resp.read())
+                text = result["choices"][0]["message"]["content"]
+                if text:
+                    print(f"LLM: OpenRouter {ormodel} succeeded")
+                    return text
+            except Exception as e:
+                print(f"OpenRouter {ormodel} failed: {e}")
+
+    # 5. Cloudflare Workers AI — free tier (already have the account)
+    cf_token = os.environ.get("CLOUDFLARE_API_TOKEN")
+    cf_account = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
+    if cf_token and cf_account:
         try:
-            from groq import Groq
-            client = Groq(api_key=key)
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=max_tokens
-            )
-            print("LLM: Groq llama-3.3-70b succeeded")
-            return response.choices[0].message.content
+            data = json.dumps({"messages": [{"role": "user", "content": prompt}], "max_tokens": min(max_tokens, 4096)}).encode()
+            req = urllib.request.Request(
+                f"https://api.cloudflare.com/client/v4/accounts/{cf_account}/ai/run/@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+                data=data,
+                headers={"Authorization": f"Bearer {cf_token}", "Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=120) as resp:
+                result = json.loads(resp.read())
+            text = result.get("result", {}).get("response", "")
+            if text:
+                print("LLM: Cloudflare Workers AI succeeded")
+                return text
         except Exception as e:
-            err = str(e)
-            print(f"Groq failed: {e}")
-            if "413" in err or "rate_limit" not in err.lower():
-                break
+            print(f"Cloudflare Workers AI failed: {e}")
 
     raise RuntimeError("All LLM providers failed")
 
