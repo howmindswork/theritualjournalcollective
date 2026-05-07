@@ -30,7 +30,11 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_API_KEY_BLOG: ${{ secrets.GEMINI_API_KEY_BLOG }}
+          GEMINI_API_KEY_3: ${{ secrets.GEMINI_API_KEY_3 }}
+          GEMINI_API_KEY_4: ${{ secrets.GEMINI_API_KEY_4 }}
+          GEMINI_API_KEY_5: ${{ secrets.GEMINI_API_KEY_5 }}
           CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
           GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
           GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
           GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
@@ -44,6 +48,9 @@ jobs:
           GROQ_API_KEY_11: ${{ secrets.GROQ_API_KEY_11 }}
           GROQ_API_KEY_12: ${{ secrets.GROQ_API_KEY_12 }}
           GROQ_API_KEY_13: ${{ secrets.GROQ_API_KEY_13 }}
+          GROQ_API_KEY_14: ${{ secrets.GROQ_API_KEY_14 }}
+          GROQ_API_KEY_15: ${{ secrets.GROQ_API_KEY_15 }}
+          GROQ_API_KEY_16: ${{ secrets.GROQ_API_KEY_16 }}
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
         run: python scripts/analyst.py
 

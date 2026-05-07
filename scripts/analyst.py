@@ -14,8 +14,12 @@ from google import genai as google_genai
 from google.genai import types as google_types
 
 def call_llm(prompt, max_tokens=2048):
-    # Try Gemini keys (primary + secondary)
-    for gkey in filter(None, [os.environ.get("GEMINI_API_KEY"), os.environ.get("GEMINI_API_KEY_BLOG")]):
+    import urllib.request
+
+    # 1. Gemini — all keys, separate quotas per project
+    gemini_keys = [v for k, v in sorted(os.environ.items())
+                   if k.startswith("GEMINI_API_KEY") and v]
+    for gkey in gemini_keys:
         for gmodel in ["gemini-2.0-flash", "gemini-2.0-flash-lite"]:
             try:
                 client = google_genai.Client(api_key=gkey)
@@ -24,27 +28,40 @@ def call_llm(prompt, max_tokens=2048):
                     contents=prompt,
                     config=google_types.GenerateContentConfig(max_output_tokens=max_tokens)
                 )
-                print(f"LLM: {gmodel} succeeded")
+                print(f"LLM: Gemini {gmodel} succeeded")
                 return response.text
             except Exception as e:
                 print(f"Gemini {gmodel} failed: {e}")
 
-    # Try Cerebras via direct HTTP (1M tokens/day free)
+    # 2. Cerebras — 1M tokens/day free
     cerebras_key = os.environ.get("CEREBRAS_API_KEY")
     if cerebras_key:
         try:
-            import urllib.request
             data = json.dumps({"model": "qwen-3-235b-a22b-instruct-2507", "messages": [{"role": "user", "content": prompt}], "max_tokens": min(max_tokens, 8192)}).encode()
             req = urllib.request.Request("https://api.cerebras.ai/v1/chat/completions", data=data,
                 headers={"Authorization": f"Bearer {cerebras_key}", "Content-Type": "application/json"})
-            with urllib.request.urlopen(req, timeout=60) as resp:
+            with urllib.request.urlopen(req, timeout=90) as resp:
                 result = json.loads(resp.read())
             print("LLM: Cerebras succeeded")
             return result["choices"][0]["message"]["content"]
         except Exception as e:
             print(f"Cerebras failed: {e}")
 
-    # Try Groq with key rotation (all 13 keys, two models each)
+    # 3. Mistral — free tier
+    mistral_key = os.environ.get("MISTRAL_API_KEY")
+    if mistral_key:
+        try:
+            data = json.dumps({"model": "mistral-small-latest", "messages": [{"role": "user", "content": prompt}], "max_tokens": min(max_tokens, 8192)}).encode()
+            req = urllib.request.Request("https://api.mistral.ai/v1/chat/completions", data=data,
+                headers={"Authorization": f"Bearer {mistral_key}", "Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=90) as resp:
+                result = json.loads(resp.read())
+            print("LLM: Mistral succeeded")
+            return result["choices"][0]["message"]["content"]
+        except Exception as e:
+            print(f"Mistral failed: {e}")
+
+    # 4. Groq — 16 keys, both models (analyst prompts are small enough for 8b)
     groq_keys = [v for k, v in sorted(os.environ.items())
                  if k.startswith("GROQ_API_KEY") and v]
     for key in groq_keys:
@@ -60,8 +77,9 @@ def call_llm(prompt, max_tokens=2048):
                 print(f"LLM: Groq {gmodel} succeeded")
                 return response.choices[0].message.content
             except Exception as e:
+                err = str(e)
                 print(f"Groq {gmodel} failed: {e}")
-                if "rate_limit" not in str(e).lower():
+                if "413" in err or "rate_limit" not in err.lower():
                     break
 
     raise RuntimeError("All LLM providers failed")
