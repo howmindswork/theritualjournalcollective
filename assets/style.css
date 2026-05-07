@@ -2,6 +2,8 @@
    The Ritual Journal Collective — Style System
    ============================================ */
 
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600&display=swap");
+
 /* Reset */
 *,
 *::before,
@@ -23,9 +25,10 @@
   --sand: #c4a882;
   --border: #e5ddd0;
   --max-width: 740px;
-  --font-serif: Georgia, "Times New Roman", serif;
+  --font-serif: "Lora", Georgia, serif;
   --font-sans:
-    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
 }
 
 /* Base */

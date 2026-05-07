@@ -70,4 +70,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Send pageview
   sendPlausibleEvent("pageview", { slug: slug });
+
+  // Scroll depth tracking
+  var scrollDepths = { 25: false, 50: false, 75: false, 100: false };
+  window.addEventListener(
+    "scroll",
+    function () {
+      var scrollPct = Math.round(
+        (window.scrollY /
+          (document.documentElement.scrollHeight - window.innerHeight)) *
+          100,
+      );
+      [25, 50, 75, 100].forEach(function (depth) {
+        if (!scrollDepths[depth] && scrollPct >= depth) {
+          scrollDepths[depth] = true;
+          sendPlausibleEvent("scroll_depth", {
+            depth: depth,
+            article: getArticleSlug(),
+          });
+        }
+      });
+    },
+    { passive: true },
+  );
+
+  // Time on page (30s = engaged reader, 2min = deep read)
+  setTimeout(function () {
+    sendPlausibleEvent("time_30s", { article: getArticleSlug() });
+  }, 30000);
+  setTimeout(function () {
+    sendPlausibleEvent("time_2min", { article: getArticleSlug() });
+  }, 120000);
 });
