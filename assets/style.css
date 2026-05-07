@@ -162,10 +162,10 @@ a:hover {
 
 /* Theme toggle button */
 #theme-toggle {
-  background: none;
-  border: 1px solid var(--border);
+  background-color: var(--bg-secondary);
+  border: 1.5px solid var(--accent);
   border-radius: 6px;
-  color: var(--text-muted);
+  color: var(--text);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -173,7 +173,7 @@ a:hover {
   width: 34px;
   height: 34px;
   padding: 6px;
-  margin-left: 0.25rem;
+  margin-left: 0.5rem;
   transition:
     color 0.15s,
     background-color 0.15s,
@@ -182,9 +182,9 @@ a:hover {
 }
 
 #theme-toggle:hover {
-  color: var(--text);
-  background-color: var(--bg-secondary);
-  border-color: var(--accent);
+  background-color: var(--border);
+  border-color: var(--accent-dark);
+  color: var(--accent-dark);
 }
 
 #theme-toggle svg {

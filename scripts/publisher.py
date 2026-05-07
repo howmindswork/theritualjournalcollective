@@ -47,7 +47,7 @@ def call_llm(prompt, max_tokens=8192):
     groq_keys = [v for k, v in sorted(os.environ.items())
                  if k.startswith("GROQ_API_KEY") and v]
     for key in groq_keys:
-        for gmodel in ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"]:
+        for gmodel in ["llama-3.3-70b-versatile"]:
             try:
                 from groq import Groq
                 client = Groq(api_key=key)
@@ -59,9 +59,11 @@ def call_llm(prompt, max_tokens=8192):
                 print(f"LLM: Groq {gmodel} succeeded")
                 return response.choices[0].message.content
             except Exception as e:
+                err = str(e)
                 print(f"Groq {gmodel} failed: {e}")
-                if "rate_limit" not in str(e).lower():
-                    break  # non-rate-limit errors, skip this key entirely
+                # 413 = prompt too large for this model; 400 org restricted — skip key entirely
+                if "413" in err or "rate_limit" not in err.lower():
+                    break
 
     raise RuntimeError("All LLM providers failed")
 
