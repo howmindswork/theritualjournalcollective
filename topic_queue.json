@@ -95,7 +95,8 @@
     "target_query": "IFS parts work grief ritual",
     "author": "eden-voss",
     "priority": 9,
-    "status": "queued"
+    "status": "published",
+    "published_date": "2026-05-07"
   },
   {
     "id": 10,
@@ -105,7 +106,8 @@
     "target_query": "grief estrangement ritual mourning someone alive",
     "author": "sable-march",
     "priority": 10,
-    "status": "queued"
+    "status": "published",
+    "published_date": "2026-05-07"
   },
   {
     "id": 11,

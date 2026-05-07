@@ -94,5 +94,29 @@
     "clicks_total": 0,
     "impressions_total": 0,
     "avg_position": null
+  },
+  {
+    "id": 9,
+    "title": "IFS Parts Work for Grief: The Part That Won't Let You Let Go",
+    "url": "posts/ifs/ifs-parts-work-grief-wont-let-go.html",
+    "cluster": "ifs",
+    "target_query": "ifs parts work grief wont let go",
+    "author": "eden-voss",
+    "published_date": "2026-05-07",
+    "clicks_total": 0,
+    "impressions_total": 0,
+    "avg_position": null
+  },
+  {
+    "id": 10,
+    "title": "Grief After Estrangement: A Ritual for Mourning Someone Still Alive",
+    "url": "posts/grief-rituals/grief-after-estrangement-ritual.html",
+    "cluster": "grief-rituals",
+    "target_query": "grief after estrangement mourning living person",
+    "author": "eden-voss",
+    "published_date": "2026-05-07",
+    "clicks_total": 0,
+    "impressions_total": 0,
+    "avg_position": null
   }
 ]
