@@ -24,7 +24,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install google-genai groq cerebras-cloud-sdk google-auth google-api-python-client
+        run: pip install google-genai groq google-auth google-api-python-client
 
       - name: Run analysis
         env:

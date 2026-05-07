@@ -16,7 +16,7 @@ from google.genai import types as google_types
 def call_llm(prompt, max_tokens=2048):
     # Try Gemini keys (primary + secondary)
     for gkey in filter(None, [os.environ.get("GEMINI_API_KEY"), os.environ.get("GEMINI_API_KEY_BLOG")]):
-        for gmodel in ["gemini-2.0-flash", "gemini-1.5-flash"]:
+        for gmodel in ["gemini-2.0-flash", "gemini-2.0-flash-lite"]:
             try:
                 client = google_genai.Client(api_key=gkey)
                 response = client.models.generate_content(
@@ -29,19 +29,18 @@ def call_llm(prompt, max_tokens=2048):
             except Exception as e:
                 print(f"Gemini {gmodel} failed: {e}")
 
-    # Try Cerebras (1M tokens/day free)
+    # Try Cerebras via direct HTTP (1M tokens/day free)
     cerebras_key = os.environ.get("CEREBRAS_API_KEY")
     if cerebras_key:
         try:
-            from cerebras.cloud.sdk import Cerebras
-            client = Cerebras(api_key=cerebras_key)
-            response = client.chat.completions.create(
-                model="llama-3.3-70b",
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=min(max_tokens, 8192)
-            )
+            import urllib.request
+            data = json.dumps({"model": "qwen-3-235b-a22b-instruct-2507", "messages": [{"role": "user", "content": prompt}], "max_tokens": min(max_tokens, 8192)}).encode()
+            req = urllib.request.Request("https://api.cerebras.ai/v1/chat/completions", data=data,
+                headers={"Authorization": f"Bearer {cerebras_key}", "Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                result = json.loads(resp.read())
             print("LLM: Cerebras succeeded")
-            return response.choices[0].message.content
+            return result["choices"][0]["message"]["content"]
         except Exception as e:
             print(f"Cerebras failed: {e}")
 
