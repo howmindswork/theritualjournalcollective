@@ -32,6 +32,8 @@ jobs:
           GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
           GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
           GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
+          GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
+          GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
         run: python scripts/analyst.py
 
