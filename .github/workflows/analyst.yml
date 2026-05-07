@@ -1,0 +1,41 @@
+name: Weekly Analyst
+
+on:
+  schedule:
+    - cron: '0 23 * * 0'
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic google-auth google-api-python-client
+
+      - name: Run analysis
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+        run: python scripts/analyst.py
+
+      - name: Commit updated data
+        run: |
+          git config user.email "analyst@theritualjournalcollective.com"
+          git config user.name "RJC Analyst"
+          git add performance_memory.json topic_queue.json
+          git diff --staged --quiet || git commit -m "data: weekly analysis $(date +%Y-%m-%d)"
+          git push

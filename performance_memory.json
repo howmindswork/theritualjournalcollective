@@ -1,0 +1,56 @@
+{
+  "last_analysis": null,
+  "clusters": {
+    "grief-rituals": {
+      "score": 0,
+      "clicks_7d": 0,
+      "impressions_7d": 0,
+      "avg_position": null,
+      "trend": "new",
+      "gap_queries": []
+    },
+    "polyvagal": {
+      "score": 0,
+      "clicks_7d": 0,
+      "impressions_7d": 0,
+      "avg_position": null,
+      "trend": "new",
+      "gap_queries": []
+    },
+    "ifs": {
+      "score": 0,
+      "clicks_7d": 0,
+      "impressions_7d": 0,
+      "avg_position": null,
+      "trend": "new",
+      "gap_queries": []
+    },
+    "emotional-release": {
+      "score": 0,
+      "clicks_7d": 0,
+      "impressions_7d": 0,
+      "avg_position": null,
+      "trend": "new",
+      "gap_queries": []
+    },
+    "morning-rituals": {
+      "score": 0,
+      "clicks_7d": 0,
+      "impressions_7d": 0,
+      "avg_position": null,
+      "trend": "new",
+      "gap_queries": []
+    },
+    "healing-rituals": {
+      "score": 0,
+      "clicks_7d": 0,
+      "impressions_7d": 0,
+      "avg_position": null,
+      "trend": "new",
+      "gap_queries": []
+    }
+  },
+  "top_articles": [],
+  "gap_queries": [],
+  "refresh_queue": []
+}

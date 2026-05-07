@@ -1,0 +1,847 @@
+/* ============================================
+   The Ritual Journal Collective — Style System
+   ============================================ */
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Variables */
+:root {
+  --bg: #faf8f4;
+  --bg-secondary: #f3efe8;
+  --text: #2c2c2c;
+  --text-muted: #6b6560;
+  --accent: #8b7355;
+  --accent-dark: #6b5840;
+  --rust: #a0522d;
+  --sand: #c4a882;
+  --border: #e5ddd0;
+  --max-width: 740px;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Base */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.75;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  padding: 2.5rem 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Links */
+a {
+  color: var(--accent-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   Site Header
+   ============================================ */
+
+.site-header {
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header .page-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.site-logo {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: normal;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+}
+
+.site-logo:hover {
+  text-decoration: none;
+  color: var(--accent-dark);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.site-nav a {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 3px;
+  text-decoration: none;
+  transition:
+    color 0.15s,
+    background-color 0.15s;
+}
+
+.site-nav a:hover {
+  color: var(--text);
+  background-color: var(--bg-secondary);
+  text-decoration: none;
+}
+
+/* ============================================
+   Layout
+   ============================================ */
+
+.page-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.article-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  color: var(--text);
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.15rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1.25rem;
+}
+
+ul,
+ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* ============================================
+   Breadcrumb
+   ============================================ */
+
+.breadcrumb {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumb a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.breadcrumb span {
+  margin: 0 0.35rem;
+}
+
+/* ============================================
+   Article Elements
+   ============================================ */
+
+.article-meta {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 1.75rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.article-meta a {
+  color: var(--accent-dark);
+  text-decoration: none;
+}
+
+.article-meta a:hover {
+  text-decoration: underline;
+}
+
+.article-meta .author-descriptor {
+  font-style: italic;
+}
+
+.article-meta .meta-dot {
+  color: var(--border);
+}
+
+.article-summary {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  border-left: 3px solid var(--sand);
+  padding-left: 1rem;
+  margin-bottom: 2rem;
+  color: var(--text);
+}
+
+/* ============================================
+   Step List
+   ============================================ */
+
+.step-list {
+  counter-reset: steps;
+  list-style: none;
+  padding-left: 0;
+}
+
+.step-list li {
+  counter-increment: steps;
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  align-items: flex-start;
+}
+
+.step-list li::before {
+  content: counter(steps);
+  background-color: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+ol.step-list li::marker {
+  color: var(--accent);
+}
+
+/* ============================================
+   Comparison Table
+   ============================================ */
+
+.comparison-table {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.comparison-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.comparison-table td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.comparison-table tr:nth-child(even) td {
+  background-color: var(--bg-secondary);
+}
+
+/* ============================================
+   Disclaimer Block
+   ============================================ */
+
+.disclaimer-block {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  border-left: 3px solid var(--sand);
+  padding: 0.75rem 1rem;
+  background-color: var(--bg-secondary);
+  margin: 2rem 0;
+  line-height: 1.6;
+}
+
+/* ============================================
+   FAQ Section
+   ============================================ */
+
+.faq-section h2 {
+  /* "Frequently Asked Questions" */
+}
+
+.faq-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  font-weight: 600;
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.faq-answer {
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ============================================
+   Related Practices
+   ============================================ */
+
+.related-practices {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+}
+
+.related-practices h2 {
+  margin-top: 0;
+  font-size: 1.15rem;
+}
+
+.related-practices ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.related-practices ul li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.related-practices ul li:last-child {
+  border-bottom: none;
+}
+
+.related-practices ul li a {
+  color: var(--accent-dark);
+}
+
+/* ============================================
+   Sources
+   ============================================ */
+
+.sources {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+.sources h2 {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.sources ol,
+.sources ul {
+  padding-left: 1.5rem;
+}
+
+.sources li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.sources a {
+  word-break: break-all;
+}
+
+/* ============================================
+   Product Recommendation
+   ============================================ */
+
+.product-rec {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.25rem;
+  margin: 2rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.product-rec .product-rec-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.product-rec p {
+  margin-bottom: 0;
+  font-size: 0.95rem;
+}
+
+.product-rec a {
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+
+/* ============================================
+   Author Card
+   ============================================ */
+
+.author-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+.author-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.author-card-info h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.author-card-descriptor {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.author-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.author-social a {
+  font-size: 0.85rem;
+  color: var(--accent-dark);
+  border: 1px solid var(--border);
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+}
+
+.author-social a:hover {
+  background-color: var(--bg-secondary);
+  text-decoration: none;
+}
+
+/* ============================================
+   Post Grid (Homepage)
+   ============================================ */
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.post-card {
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  border-radius: 4px;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+
+.post-card:hover {
+  box-shadow: 0 2px 12px rgba(139, 115, 85, 0.12);
+  border-color: var(--accent);
+}
+
+.post-card-cluster {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.post-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.post-card-title:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.post-card-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.post-card-meta .meta-dot {
+  color: var(--border);
+}
+
+/* Homepage section headings */
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--text);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-heading a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.section-heading a:hover {
+  color: var(--accent-dark);
+}
+
+/* ============================================
+   Hero (Homepage)
+   ============================================ */
+
+.hero {
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+
+.hero-lead {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 580px;
+  line-height: 1.7;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.site-footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  margin-top: auto;
+}
+
+.site-footer .page-container {
+  text-align: center;
+}
+
+.site-footer p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.site-footer nav {
+  margin-bottom: 0.75rem;
+}
+
+.site-footer nav a {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.site-footer nav a:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.footer-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ============================================
+   Static Pages (About, Disclaimer, etc.)
+   ============================================ */
+
+.page-hero {
+  padding: 2.5rem 0 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+
+.page-hero h1 {
+  font-size: 1.9rem;
+}
+
+.page-hero p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.page-body h2 {
+  margin-top: 2rem;
+}
+
+.page-body p {
+  color: var(--text);
+}
+
+.page-body ul,
+.page-body ol {
+  color: var(--text);
+}
+
+/* Team / author grid */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.team-card {
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.team-card-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: #fff;
+  margin: 0 auto 0.75rem;
+}
+
+.team-card h3 {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+.team-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.team-card a {
+  font-size: 0.85rem;
+}
+
+/* Contact form area */
+.contact-block {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.contact-block p {
+  margin-bottom: 0.5rem;
+}
+
+.contact-email {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+  }
+
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+
+  .post-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header .page-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-nav {
+    gap: 0;
+  }
+
+  .site-nav a {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .article-container,
+  .page-container {
+    padding: 0 1rem;
+  }
+
+  .author-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .author-social {
+    justify-content: center;
+  }
+
+  main {
+    padding: 1.5rem 0;
+  }
+}
