@@ -118,5 +118,17 @@
     "clicks_total": 0,
     "impressions_total": 0,
     "avg_position": null
+  },
+  {
+    "id": 11,
+    "title": "TRE Shaking as a Grief Ritual",
+    "url": "posts/emotional-release/tre-shaking-grief-ritual.html",
+    "cluster": "emotional-release",
+    "target_query": "TRE shaking grief ritual",
+    "author": "m-ellis",
+    "published_date": "2026-05-08",
+    "clicks_total": 0,
+    "impressions_total": 0,
+    "avg_position": null
   }
 ]

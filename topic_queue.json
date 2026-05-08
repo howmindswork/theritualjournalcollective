@@ -117,7 +117,8 @@
     "target_query": "TRE shaking grief ritual",
     "author": "m-ellis",
     "priority": 11,
-    "status": "queued"
+    "status": "published",
+    "published_date": "2026-05-08"
   },
   {
     "id": 12,
