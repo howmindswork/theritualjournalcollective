@@ -71,6 +71,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // Send pageview
   sendPlausibleEvent("pageview", { slug: slug });
 
+  // Mirror to HMW analytics for dashboard visibility
+  fetch(
+    "https://hmw-analytics.howmindswork.workers.dev/track?page=" +
+      encodeURIComponent("trjc/" + slug) +
+      "&ref=" +
+      encodeURIComponent(document.referrer || ""),
+    { method: "GET", mode: "no-cors" },
+  ).catch(function () {});
+
   // Scroll depth tracking
   var scrollDepths = { 25: false, 50: false, 75: false, 100: false };
   window.addEventListener(
