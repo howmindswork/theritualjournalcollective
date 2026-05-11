@@ -130,5 +130,17 @@
     "clicks_total": 0,
     "impressions_total": 0,
     "avg_position": null
+  },
+  {
+    "id": 12,
+    "title": "A Ritual for Men in Grief: The Action-Based Protocol",
+    "url": "posts/grief-rituals/men-in-grief-ritual-protocol.html",
+    "cluster": "grief-rituals",
+    "target_query": "grief ritual for men action based",
+    "author": "eden-voss",
+    "published_date": "2026-05-11",
+    "clicks_total": 0,
+    "impressions_total": 0,
+    "avg_position": null
   }
 ]
