@@ -142,5 +142,17 @@
     "clicks_total": 0,
     "impressions_total": 0,
     "avg_position": null
+  },
+  {
+    "id": 13,
+    "title": "Ancestral Grief Ritual: A Somatic Practice for Inherited Family Sorrow",
+    "url": "posts/ifs/ancestral-grief-ritual-somatic.html",
+    "cluster": "ifs",
+    "target_query": "ancestral grief ritual somatic IFS",
+    "author": "sable-march",
+    "published_date": "2026-05-13",
+    "clicks_total": 0,
+    "impressions_total": 0,
+    "avg_position": null
   }
 ]
