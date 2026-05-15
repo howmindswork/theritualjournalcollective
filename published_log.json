@@ -154,5 +154,17 @@
     "clicks_total": 0,
     "impressions_total": 0,
     "avg_position": null
+  },
+  {
+    "id": 14,
+    "title": "Disenfranchised Grief Ritual: For the Loss Nobody Acknowledges",
+    "url": "posts/grief-rituals/disenfranchised-grief-ritual.html",
+    "cluster": "grief-rituals",
+    "target_query": "disenfranchised grief ritual",
+    "author": "eden-voss",
+    "published_date": "2026-05-15",
+    "clicks_total": 0,
+    "impressions_total": 0,
+    "avg_position": null
   }
 ]
